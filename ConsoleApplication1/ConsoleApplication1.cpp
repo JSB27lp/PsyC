@@ -6,11 +6,10 @@
 int main(void)
 {
     Game game{};
-    game.init();
 
-    while (!WindowShouldClose())       
-    {
+    while (!WindowShouldClose()){
         game.process();
+        game.draw();
     }
 
     CloseWindow();   

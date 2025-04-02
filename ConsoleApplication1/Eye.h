@@ -9,5 +9,5 @@ private:
 	Texture2D & eyeImg_;
 public:
 	Eye(Texture2D & eyeImg);
-	void display(Camera3D camera);
+	void draw(Camera3D camera);
 };

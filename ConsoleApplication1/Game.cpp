@@ -4,21 +4,19 @@
 #include "Door.h"
 #include "Eye.h"
 
-Game::Game() :doored{ false }, i{ 0 }, camera{ 0 }, screenWidth{ 1920 }, screenHeight{1080} {
+Game::Game() :doored{ false }, i{ 0 },screenWidth{ 1920 }, screenHeight{1080} {
+    InitWindow(screenWidth, screenHeight, "JSB");
+    DisableCursor();
+    SetTargetFPS(165);
+
 
     camera.position = { 10.0f, 10.0f, 10.0f }; // Camera position
-    camera.target = { 0.0f, 0.0f, 0.0f };      // Camera looking at point
+    camera.target = { -16.0f, 4.0f, -16.0f };      // Camera looking at point
     camera.up = { 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
-    camera.fovy = 45.0f;                                // Camera field-of-view Y
+    camera.fovy = 90;                                // Camera field-of-view Y
     camera.projection = CAMERA_PERSPECTIVE;             // Camera projection type
 
     eyeImg = LoadTexture("resources/eye.jpg");
-}
-
-void Game::init() {
-    DisableCursor();
-    SetTargetFPS(165);
-    InitWindow(screenWidth, screenHeight, "JSB");
 }
 
 void Game::process() {
@@ -28,15 +26,12 @@ void Game::process() {
         eyeArray.push_back(eye);
     }
 
-    // Update
-    //----------------------------------------------------------------------------------
     UpdateCamera(&camera, CAMERA_FREE);
 
     doored = door.collide(camera);
-    //----------------------------------------------------------------------------------
+}
 
-    // Draw
-    //----------------------------------------------------------------------------------
+void Game::draw() {
     BeginDrawing();
 
     ClearBackground(BLACK);
@@ -44,13 +39,13 @@ void Game::process() {
 
     BeginMode3D(camera);
 
-    door.display();
+    door.draw();
 
     if (!doored) {
         DrawGrid(10, 1.0f);
         for (auto eye : eyeArray)
         {
-            eye.display(camera);
+            eye.draw(camera);
         }
     }
     else {
@@ -60,6 +55,6 @@ void Game::process() {
 
     EndMode3D();
 
-    DrawText("Je Suis Bizarre. C'est sans doute à cause...", screenWidth / 2, screenHeight - 10, 12, WHITE);
+    DrawText("Je Suis Bizarre. C'est sans doute à cause...", 10, 10, 12, WHITE);
     EndDrawing();
 }

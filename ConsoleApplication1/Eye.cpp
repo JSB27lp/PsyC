@@ -12,7 +12,7 @@ Eye::Eye(Texture2D & eyeImg) : eyeImg_{eyeImg} {
 	billPositionStatic_.z += v3;
 }
 
-void Eye::display(Camera3D camera) {
+void Eye::draw(Camera3D camera) {
 
 
 	if (!((billPositionStatic_.x > -5 && billPositionStatic_.x < 5) && (billPositionStatic_.y > -5 && billPositionStatic_.y < 5) && (billPositionStatic_.z > -5 && billPositionStatic_.z < 5))) {

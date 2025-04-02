@@ -10,7 +10,7 @@ private:
 	Color colorBorder = GRAY;
 
 public:
-	void display();
+	void draw();
 	bool collide(Camera3D camera);
 };
 

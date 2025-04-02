@@ -19,7 +19,7 @@ private:
 
 public:
 	Game();
-	void init();
 	void process();
+    void draw();
 };
 

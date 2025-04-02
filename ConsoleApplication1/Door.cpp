@@ -1,6 +1,6 @@
 #include "Door.h"
 
-void Door::display() {
+void Door::draw() {
     DrawCube(cubePosition, 2.0f, 4.0f, 0.5f, color);
     DrawCubeWires(cubePosition, largeur, hauteur, profondeur, colorBorder);
 }
