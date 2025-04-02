@@ -1,18 +1,19 @@
 #pragma once
 #include "raylib.h"
 
-class Door
+class Step
 {
 private:
 	Vector3 cubePosition;
-	float largeur = 2.0f, hauteur = 4.0f, profondeur = 0.5f;
+	float largeur = 4.0f, hauteur = 1.0f, profondeur = 1.0f;
 	Color color_;
 	Color colorBorder_;
 	bool empty_;
 
 public:
-	Door(Color color, Color colorBorder, Vector3 position, bool empty);
+	Step(Color color, Color colorBorder, Vector3 position, bool empty);
 	void draw();
 	bool collide(Camera3D camera);
 };
+
 
