@@ -13,7 +13,9 @@ Eye::Eye(Texture2D & eyeImg) : eyeImg_{eyeImg} {
 }
 
 void Eye::display(Camera3D camera) {
-	if ((billPositionStatic_.x < -5 || billPositionStatic_.x > 5) && (billPositionStatic_.y < -5 || billPositionStatic_.y > 5) && (billPositionStatic_.z < -5 || billPositionStatic_.z > 5)){
+
+
+	if (!((billPositionStatic_.x > -5 && billPositionStatic_.x < 5) && (billPositionStatic_.y > -5 && billPositionStatic_.y < 5) && (billPositionStatic_.z > -5 && billPositionStatic_.z < 5))) {
 		DrawBillboard(camera, eyeImg_, billPositionStatic_, 2.0f, WHITE);
 	}
 }
