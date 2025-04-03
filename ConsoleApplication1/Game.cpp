@@ -5,7 +5,7 @@
 #include "Door.h"
 #include "Eye.h"
 
-Game::Game() :doored{ false }, doored1{ false }, i{ 0 }, screenWidth{ 1920 }, screenHeight{ 1080 }, door{WHITE,GRAY,{ 0.0f, 2.0f, 0.0f },false }, door1{ BLACK,GRAY,{ 0.0f, 2.0f, -25.0f },false } {
+Game::Game() :doored{ false }, doored1{ false }, i{ 0 }, screenWidth{ 1270 }, screenHeight{ 720 }, door{WHITE,GRAY,{ 0.0f, 2.0f, 0.0f },false }, door1{ BLACK,GRAY,{ 0.0f, 2.0f, -25.0f },false } {
     InitWindow(screenWidth, screenHeight, "JSB");
     DisableCursor();
     SetTargetFPS(165);
@@ -38,13 +38,16 @@ void Game::process() {
         eyeArray.push_back(eye);
     }
 
-    UpdateCamera(&camera, CAMERA_FREE);
+    if (!doored or !doored1)UpdateCamera(&camera, CAMERA_FREE);
+    else player.move(camera);
+  
+
 
     if (!doored) {
         doored = door.collide(camera);
     }
     else {
-        if (door1.collide(camera)) {
+        if (door1.collide(camera) && !doored1) {
             camera.position = { 10.0f, 10.0f, 10.0f }; // Camera position
             camera.target = { -16.0f, 4.0f, -16.0f };      // Camera looking at point
             doored = !doored;
@@ -109,15 +112,13 @@ void Game::draw() {
             DrawText("Je suis bizarre. C'est sans doute a cause...", 10, 10, 20, WHITE);
         }
         else {
-            DrawText("A cause de quoi ? Quelle est l'origine de votre psychose ?", 10, 10, 20, BLACK);
+            DrawText("A cause ?", 10, 10, 20, BLACK);
+            DrawText("Quelle est l'origine de votre psychose ?", 10, 20, 20, BLACK);
         }
     }
     else {
         if (!doored) {
             DrawText("La cause originelle semble en rapport avec une experience passee...", 10, 10, 20, WHITE);
-        }
-        else {
-            DrawText("Montrez-moi !", 10, 10, 20, BLACK);
         }
     }
 

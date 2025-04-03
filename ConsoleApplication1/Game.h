@@ -3,6 +3,7 @@
 #include "Eye.h"
 #include "Step.h"
 #include <vector>
+#include "player.h"
 class Game
 {
 private:
@@ -10,6 +11,7 @@ private:
     const int screenHeight;
 
     Camera3D camera;
+    Player player;
 
     bool doored;
     Door door;
