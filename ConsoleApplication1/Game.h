@@ -11,12 +11,15 @@ private:
     const int screenWidth;
     const int screenHeight;
 
-    Camera3D camera;
 
     bool doored;
     Door door;
     bool doored1;
     Door door1;
+
+    Camera3D camera;
+    Door doorend;
+
 
     std::vector<Step> stepArray;
 
@@ -31,6 +34,8 @@ public:
 	Game();
 	void process();
     void draw();
+
+    bool endLvl = false;
 
 
 };

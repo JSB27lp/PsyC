@@ -2,10 +2,8 @@
 #include "util.h"
 
 
-Game::Game() :doored{ false }, doored1{ false }, i{ 0 }, screenWidth{ 1920 }, screenHeight{ 1080 }, door{WHITE,GRAY,{ 0.0f, 2.0f, 0.0f },false }, door1{ BLACK,GRAY,{ 0.0f, 2.0f, -25.0f },false } {
-    InitWindow(screenWidth, screenHeight, "JSB");
-    DisableCursor();
-    SetTargetFPS(165);
+Game::Game() :doored{ false }, doored1{ false }, i{ 0 }, screenWidth{ 1920 }, screenHeight{ 1080 }, door{WHITE,GRAY,{ 0.0f, 2.0f, 0.0f },false }, door1{ BLACK,GRAY,{ 0.0f, 2.0f, -25.0f },false }, doorend{ GREEN,GRAY,{ 27.0f, 27.0f, -27.0f },false } {
+
 
 
     camera.position = { 10.0f, 10.0f, 10.0f }; // Camera position
@@ -27,6 +25,10 @@ Game::Game() :doored{ false }, doored1{ false }, i{ 0 }, screenWidth{ 1920 }, sc
         Step step{ BLACK, GRAY, { s1, s2, s3 }, false };
         stepArray.push_back(step);
     }
+    Step step{ BLACK, GRAY, { 27.0f, 25.0f, -27.0f  }, false };
+    stepArray.push_back(step);
+
+
 
 }
 
@@ -39,7 +41,9 @@ void Game::process() {
 
     UpdateCamera(&camera, CAMERA_FREE);
   
-
+    if (doorend.collide(camera)) {
+        endLvl = true;
+    }
 
     if (!doored) {
         doored = door.collide(camera);
@@ -96,6 +100,7 @@ void Game::draw() {
                 step.draw();
             }
             DrawCubeTexture(child, { 0.0f, 1.5f, -20.0f }, 3.0f, 3.0f, 3.0f, WHITE);//le Premier problème psychologique
+            doorend.draw();
         }
 
         if (camera.position.y<1) {

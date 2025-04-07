@@ -131,12 +131,14 @@
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Eye.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LevelOne.cpp" />
     <ClCompile Include="Step.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Door.h" />
     <ClInclude Include="Eye.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="LevelOne.h" />
     <ClInclude Include="Step.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>

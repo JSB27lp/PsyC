@@ -1,13 +1,23 @@
 #include "Game.h"
-
+#include "LevelOne.h"
 
 int main(void)
 {
+    InitWindow(1920, 1080, "JSB");
+    DisableCursor();
+    SetTargetFPS(165);
+
     Game game{};
+    LevelOne levelone{};
 
     while (!WindowShouldClose()){
-        game.process();
-        game.draw();
+        if (!game.endLvl) {
+            game.process();
+            game.draw();
+        }
+        else {
+			levelone.draw();
+        }
     }
 
     CloseWindow();   
