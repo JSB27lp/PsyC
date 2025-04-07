@@ -11,7 +11,7 @@ int main(void)
     LevelOne levelone{};
 
     while (!WindowShouldClose()){
-        if (!game.endLvl) {
+        if (!game.endLvl and 0) {
             game.process();
             game.draw();
         }

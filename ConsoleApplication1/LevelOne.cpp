@@ -22,6 +22,8 @@ void LevelOne::draw() {
 
         DrawGrid(10000, 1.0f);
 
+		cuby.DrawCubeWithTexture(textury, { 0.0f, 10.0f, 0.0f }, 20.0f, 20.0f, 1.0f, WHITE);
+
     EndMode3D();
 
     DrawText("Il a bien fallu trouver un moyen de s'echapper mentalement", 10, 10, 20, WHITE);
