@@ -16,6 +16,7 @@ int main(void)
             game.draw();
         }
         else {
+            levelone.process();
 			levelone.draw();
         }
     }
