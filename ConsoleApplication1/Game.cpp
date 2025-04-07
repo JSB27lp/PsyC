@@ -1,9 +1,6 @@
 #include "Game.h"
-#include "raylib.h"
-#include "rlgl.h" 
-#include <vector>
-#include "Door.h"
-#include "Eye.h"
+#include "util.h"
+
 
 Game::Game() :doored{ false }, doored1{ false }, i{ 0 }, screenWidth{ 1270 }, screenHeight{ 720 }, door{WHITE,GRAY,{ 0.0f, 2.0f, 0.0f },false }, door1{ BLACK,GRAY,{ 0.0f, 2.0f, -25.0f },false } {
     InitWindow(screenWidth, screenHeight, "JSB");
@@ -38,8 +35,7 @@ void Game::process() {
         eyeArray.push_back(eye);
     }
 
-    if (!doored or !doored1)UpdateCamera(&camera, CAMERA_FREE);
-    else player.move(camera);
+    UpdateCamera(&camera, CAMERA_FREE);
   
 
 
@@ -93,11 +89,6 @@ void Game::draw() {
             camera.position.y = 1;
         }
 
-        if (doored1) {
-            if (camera.position.y > 1) {
-                camera.position.y = 1;
-            }
-        }
     }
     //voici le Premier problème psychologique
 
@@ -112,8 +103,8 @@ void Game::draw() {
             DrawText("Je suis bizarre. C'est sans doute a cause...", 10, 10, 20, WHITE);
         }
         else {
-            DrawText("A cause ?", 10, 10, 20, BLACK);
-            DrawText("Quelle est l'origine de votre psychose ?", 10, 20, 20, BLACK);
+            DrawText("A cause de quoi ?", 10, 10, 20, BLACK);
+            DrawText("Quelle est l'origine de ma psychose ?", 10, 30, 20, BLACK);
         }
     }
     else {
@@ -128,65 +119,4 @@ void Game::draw() {
     EndDrawing();
 }
 
-// Draw cube textured
-// NOTE: Cube position is the center position
-void Game::DrawCubeTexture(Texture2D texture, Vector3 position, float width, float height, float length, Color color)
-{
-    float x = position.x;
-    float y = position.y;
-    float z = position.z;
 
-    // Set desired texture to be enabled while drawing following vertex data
-    rlSetTexture(texture.id);
-
-    // Vertex data transformation can be defined with the commented lines,
-    // but in this example we calculate the transformed vertex data directly when calling rlVertex3f()
-    //rlPushMatrix();
-        // NOTE: Transformation is applied in inverse order (scale -> rotate -> translate)
-        //rlTranslatef(2.0f, 0.0f, 0.0f);
-        //rlRotatef(45, 0, 1, 0);
-        //rlScalef(2.0f, 2.0f, 2.0f);
-
-    rlBegin(RL_QUADS);
-    rlColor4ub(color.r, color.g, color.b, color.a);
-    // Front Face
-    rlNormal3f(0.0f, 0.0f, 1.0f);       // Normal Pointing Towards Viewer
-    rlTexCoord2f(0.0f, 0.0f); rlVertex3f(x - width / 2, y - height / 2, z + length / 2);  // Bottom Left Of The Texture and Quad
-    rlTexCoord2f(1.0f, 0.0f); rlVertex3f(x + width / 2, y - height / 2, z + length / 2);  // Bottom Right Of The Texture and Quad
-    rlTexCoord2f(1.0f, 1.0f); rlVertex3f(x + width / 2, y + height / 2, z + length / 2);  // Top Right Of The Texture and Quad
-    rlTexCoord2f(0.0f, 1.0f); rlVertex3f(x - width / 2, y + height / 2, z + length / 2);  // Top Left Of The Texture and Quad
-    // Back Face
-    rlNormal3f(0.0f, 0.0f, -1.0f);     // Normal Pointing Away From Viewer
-    rlTexCoord2f(1.0f, 0.0f); rlVertex3f(x - width / 2, y - height / 2, z - length / 2);  // Bottom Right Of The Texture and Quad
-    rlTexCoord2f(1.0f, 1.0f); rlVertex3f(x - width / 2, y + height / 2, z - length / 2);  // Top Right Of The Texture and Quad
-    rlTexCoord2f(0.0f, 1.0f); rlVertex3f(x + width / 2, y + height / 2, z - length / 2);  // Top Left Of The Texture and Quad
-    rlTexCoord2f(0.0f, 0.0f); rlVertex3f(x + width / 2, y - height / 2, z - length / 2);  // Bottom Left Of The Texture and Quad
-    // Top Face
-    rlNormal3f(0.0f, 1.0f, 0.0f);       // Normal Pointing Up
-    rlTexCoord2f(0.0f, 1.0f); rlVertex3f(x - width / 2, y + height / 2, z - length / 2);  // Top Left Of The Texture and Quad
-    rlTexCoord2f(0.0f, 0.0f); rlVertex3f(x - width / 2, y + height / 2, z + length / 2);  // Bottom Left Of The Texture and Quad
-    rlTexCoord2f(1.0f, 0.0f); rlVertex3f(x + width / 2, y + height / 2, z + length / 2);  // Bottom Right Of The Texture and Quad
-    rlTexCoord2f(1.0f, 1.0f); rlVertex3f(x + width / 2, y + height / 2, z - length / 2);  // Top Right Of The Texture and Quad
-    // Bottom Face
-    rlNormal3f(0.0f, -1.0f, 0.0f);     // Normal Pointing Down
-    rlTexCoord2f(1.0f, 1.0f); rlVertex3f(x - width / 2, y - height / 2, z - length / 2);  // Top Right Of The Texture and Quad
-    rlTexCoord2f(0.0f, 1.0f); rlVertex3f(x + width / 2, y - height / 2, z - length / 2);  // Top Left Of The Texture and Quad
-    rlTexCoord2f(0.0f, 0.0f); rlVertex3f(x + width / 2, y - height / 2, z + length / 2);  // Bottom Left Of The Texture and Quad
-    rlTexCoord2f(1.0f, 0.0f); rlVertex3f(x - width / 2, y - height / 2, z + length / 2);  // Bottom Right Of The Texture and Quad
-    // Right face
-    rlNormal3f(1.0f, 0.0f, 0.0f);       // Normal Pointing Right
-    rlTexCoord2f(1.0f, 0.0f); rlVertex3f(x + width / 2, y - height / 2, z - length / 2);  // Bottom Right Of The Texture and Quad
-    rlTexCoord2f(1.0f, 1.0f); rlVertex3f(x + width / 2, y + height / 2, z - length / 2);  // Top Right Of The Texture and Quad
-    rlTexCoord2f(0.0f, 1.0f); rlVertex3f(x + width / 2, y + height / 2, z + length / 2);  // Top Left Of The Texture and Quad
-    rlTexCoord2f(0.0f, 0.0f); rlVertex3f(x + width / 2, y - height / 2, z + length / 2);  // Bottom Left Of The Texture and Quad
-    // Left Face
-    rlNormal3f(-1.0f, 0.0f, 0.0f);    // Normal Pointing Left
-    rlTexCoord2f(0.0f, 0.0f); rlVertex3f(x - width / 2, y - height / 2, z - length / 2);  // Bottom Left Of The Texture and Quad
-    rlTexCoord2f(1.0f, 0.0f); rlVertex3f(x - width / 2, y - height / 2, z + length / 2);  // Bottom Right Of The Texture and Quad
-    rlTexCoord2f(1.0f, 1.0f); rlVertex3f(x - width / 2, y + height / 2, z + length / 2);  // Top Right Of The Texture and Quad
-    rlTexCoord2f(0.0f, 1.0f); rlVertex3f(x - width / 2, y + height / 2, z - length / 2);  // Top Left Of The Texture and Quad
-    rlEnd();
-    //rlPopMatrix();
-
-    rlSetTexture(0);
-}
