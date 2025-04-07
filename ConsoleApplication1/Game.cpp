@@ -2,7 +2,7 @@
 #include "util.h"
 
 
-Game::Game() :doored{ false }, doored1{ false }, i{ 0 }, screenWidth{ 1270 }, screenHeight{ 720 }, door{WHITE,GRAY,{ 0.0f, 2.0f, 0.0f },false }, door1{ BLACK,GRAY,{ 0.0f, 2.0f, -25.0f },false } {
+Game::Game() :doored{ false }, doored1{ false }, i{ 0 }, screenWidth{ 1920 }, screenHeight{ 1080 }, door{WHITE,GRAY,{ 0.0f, 2.0f, 0.0f },false }, door1{ BLACK,GRAY,{ 0.0f, 2.0f, -25.0f },false } {
     InitWindow(screenWidth, screenHeight, "JSB");
     DisableCursor();
     SetTargetFPS(165);
@@ -18,6 +18,7 @@ Game::Game() :doored{ false }, doored1{ false }, i{ 0 }, screenWidth{ 1270 }, sc
 
 
     child = LoadTexture("resources/child.jpg");
+    childTxt = LoadTexture("resources/child_txt.jpg");
 
     for (int i{ 0 };i < 100;i++) {
         float s1 = static_cast<float>(rand() % 100 - 50);
@@ -84,7 +85,8 @@ void Game::draw() {
             for (auto step : stepArray) {
                 step.draw();
             }
-            DrawCubeTexture(child, { 0.0f, 0.5f, -20.0f }, 1.0f, 1.0f, 1.0f, WHITE);
+            DrawCubeTexture(child, { 0.0f, 4.5f, -20.0f }, 3.0f, 3.0f, 3.0f, WHITE);
+            DrawCubeTexture(childTxt, { 0.0f, 1.5f, -20.0f }, 3.0f, 3.0f, 3.0f, WHITE);
         }
 
         if (camera.position.y<1) {

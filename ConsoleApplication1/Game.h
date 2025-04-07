@@ -25,6 +25,7 @@ private:
     int i;
 
     Texture2D child;
+    Texture2D childTxt;
 
 public:
 	Game();
