@@ -17,6 +17,7 @@ Game::Game() :doored{ false }, doored1{ false }, i{ 0 }, screenWidth{ 1270 }, sc
     eyeImg = LoadTexture("resources/eye.jpg");
 
 
+    child = LoadTexture("resources/child.jpg");
 
     for (int i{ 0 };i < 100;i++) {
         float s1 = static_cast<float>(rand() % 100 - 50);
@@ -83,6 +84,7 @@ void Game::draw() {
             for (auto step : stepArray) {
                 step.draw();
             }
+            DrawCubeTexture(child, { 0.0f, 0.5f, -20.0f }, 1.0f, 1.0f, 1.0f, WHITE);
         }
 
         if (camera.position.y<1) {

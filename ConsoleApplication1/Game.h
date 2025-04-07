@@ -24,7 +24,7 @@ private:
     std::vector<Eye> eyeArray;
     int i;
 
-
+    Texture2D child;
 
 public:
 	Game();
