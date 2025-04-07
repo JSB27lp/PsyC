@@ -55,6 +55,16 @@ void Game::process() {
 }
 
 void Game::draw() {
+
+
+
+
+
+
+
+
+
+
     BeginDrawing();
 
     ClearBackground(BLACK);
@@ -62,7 +72,7 @@ void Game::draw() {
 
     BeginMode3D(camera);
 
-    
+
 
     door.draw();
 
@@ -85,8 +95,7 @@ void Game::draw() {
             for (auto step : stepArray) {
                 step.draw();
             }
-            DrawCubeTexture(child, { 0.0f, 4.5f, -20.0f }, 3.0f, 3.0f, 3.0f, WHITE);
-            DrawCubeTexture(childTxt, { 0.0f, 1.5f, -20.0f }, 3.0f, 3.0f, 3.0f, WHITE);
+            DrawCubeTexture(child, { 0.0f, 1.5f, -20.0f }, 3.0f, 3.0f, 3.0f, WHITE);//le Premier problème psychologique
         }
 
         if (camera.position.y<1) {
@@ -94,7 +103,7 @@ void Game::draw() {
         }
 
     }
-    //voici le Premier problème psychologique
+    
 
     
 
